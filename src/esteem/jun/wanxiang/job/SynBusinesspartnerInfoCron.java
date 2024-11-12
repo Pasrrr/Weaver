@@ -67,19 +67,19 @@ public class SynBusinesspartnerInfoCron extends BaseCronJob {
                     if(recordSet.next()){
                         if(!NAME_ORG1.equals(Util.null2String(recordSet.getString("NAME_ORG1")))){
                             map.put("id",Util.null2String(recordSet.getString("id")));
-                        }if(!NAME_ORG1.equals(Util.null2String(recordSet.getString("STCD5")))){
+                        }if(!STCD5.equals(Util.null2String(recordSet.getString("STCD5")))){
                             map.put("id",Util.null2String(recordSet.getString("id")));
-                        }if(!NAME_ORG1.equals(Util.null2String(recordSet.getString("BANKN")))){
+                        }if(!BANKN.equals(Util.null2String(recordSet.getString("BANKN")))){
                             map.put("id",Util.null2String(recordSet.getString("id")));
-                        }if(!NAME_ORG1.equals(Util.null2String(recordSet.getString("BANKL")))){
+                        }if(!BANKL.equals(Util.null2String(recordSet.getString("BANKL")))){
                             map.put("id",Util.null2String(recordSet.getString("id")));
-                        }if(!NAME_ORG1.equals(Util.null2String(recordSet.getString("BANKA")))){
+                        }if(!BANKA.equals(Util.null2String(recordSet.getString("BANKA")))){
                             map.put("id",Util.null2String(recordSet.getString("id")));
-                        }if(!NAME_ORG1.equals(Util.null2String(recordSet.getString("STRAS")))){
+                        }if(!STRAS.equals(Util.null2String(recordSet.getString("STRAS")))){
                             map.put("id",Util.null2String(recordSet.getString("id")));
-                        }if(!NAME_ORG1.equals(Util.null2String(recordSet.getString("STRAS1")))){
+                        }if(!STRAS1.equals(Util.null2String(recordSet.getString("STRAS1")))){
                             map.put("id",Util.null2String(recordSet.getString("id")));
-                        }if(!NAME_ORG1.equals(Util.null2String(recordSet.getString("MITKZ")))){
+                        }if(!MITKZ.equals(Util.null2String(recordSet.getString("MITKZ")))){
                             map.put("id",Util.null2String(recordSet.getString("id")));
                         }else{
                             continue;
