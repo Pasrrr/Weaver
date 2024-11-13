@@ -27,7 +27,7 @@ import static weaver.general.Util.null2String;
  */
 public class WanXiangXgxxServiceImpl implements WanXiangXgxxService {
     private Log log = LogFactory.getLog(WanXiangXgxxServiceImpl.class.getName());
-    String sql = " select hrmresource.id from hrmresource join cus_fielddata on hrmresource.id =cus_fielddata.id and cus_fielddata.SCOPEID='-1' and cus_fielddata.field13 = ?";
+    String sql = " select hrmresource.id,hrmresource.subcompanyid1 from hrmresource join cus_fielddata on hrmresource.id =cus_fielddata.id and cus_fielddata.SCOPEID='-1' and cus_fielddata.field13 = ?";
 
     @Override
     public ResultMesage creatPurchaseRequisitionWorkFlow(PurchaseRequisitionReq purchaseRequisitionReq) throws UnsupportedEncodingException {
@@ -44,15 +44,20 @@ public class WanXiangXgxxServiceImpl implements WanXiangXgxxService {
                 return resultMesage;
             }
             String creater = "";
+            String subcompanyid1="";
             //String sql=" select hrmresource.id from hrmresource join cus_fielddata on cus_fielddata.SCOPEID='-1' and cus_fielddata.field13 = '"+Util.null2String(purchaseRequisitionReq.getBNAME())+"'";
             recordSet.executeQuery(sql, null2String(purchaseRequisitionReq.getBNAME()));
             if (recordSet.next()) {
                 creater = null2String(recordSet.getString("id"));
+                subcompanyid1=null2String(recordSet.getString("subcompanyid1"));
             }
             if ("".equals(creater)) {
                 resultMesage.setFlag("1");
                 resultMesage.setMessage("错误信息:无法获取创建人ID");
                 return resultMesage;
+            }
+            if ("99".equals(subcompanyid1)){
+                workflowid=Prop.getPropValue("wanxiang", "cgsqout.workflowid");
             }
             Map<String, String> hrMap = CommonUtil.getHRMapById(creater);
             String createrId = null2String(hrMap.get("createid"));
@@ -435,16 +440,20 @@ public class WanXiangXgxxServiceImpl implements WanXiangXgxxService {
                 return resultMesage;
             }
             String creater = "";
-
+            String subcompanyid1="";
             //String sql=" select hrmresource.id from hrmresource join cus_fielddata on cus_fielddata.SCOPEID='-1' and cus_fielddata.field13 = '"+Util.null2String(rawMaterialCheckReq.getERNAM())+"'";
             recordSet.executeQuery(sql, null2String(purchaseOrderReq.getERNAM()));
             if (recordSet.next()) {
                 creater = null2String(recordSet.getString("id"));
+                subcompanyid1=null2String(recordSet.getString("subcompanyid1"));
             }
             if ("".equals(creater)) {
                 resultMesage.setFlag("1");
                 resultMesage.setMessage("错误信息:无法获取创建人ID");
                 return resultMesage;
+            }
+            if ("99".equals(subcompanyid1)){
+                workflowid=Prop.getPropValue("wanxiang", "cgddout.workflowid");
             }
             Map<String, String> hrMap = CommonUtil.getHRMapById(creater);
             String createrId = null2String(hrMap.get("createid"));
