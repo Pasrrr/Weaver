@@ -58,6 +58,7 @@ public class invoiceInfoCron extends BaseCronJob {
                     String ZBHSJE= Util.null2String(map.get("ZBHSJE"));
                     String ZFPSE= Util.null2String(map.get("ZFPSE"));
                     String ZNAME= Util.null2String(map.get("ZNAME"));
+                    String ZCHECKCODE= Util.null2String(map.get("ZCHECKCODE"));
                     String sql="select * from uf_fpxx where ZFPBM ='"+ZFPBM+"'";
                     recordSet.execute(sql);
                     if(recordSet.next()){
@@ -68,6 +69,8 @@ public class invoiceInfoCron extends BaseCronJob {
                         }if(!ZFPSE.equals(Util.null2String(recordSet.getString("ZFPSE")))){
                             map.put("id",Util.null2String(recordSet.getString("id")));
                         }if(!ZNAME.equals(Util.null2String(recordSet.getString("ZNAME")))){
+                            map.put("id",Util.null2String(recordSet.getString("id")));
+                        }if(!ZCHECKCODE.equals(Util.null2String(recordSet.getString("ZCHECKCODE")))){
                             map.put("id",Util.null2String(recordSet.getString("id")));
                         }else{
                             continue;
@@ -125,6 +128,9 @@ public class invoiceInfoCron extends BaseCronJob {
                             }
                             if (items.getNodeName().equals("ZNAME")) {
                                 resultMap.put("ZNAME",items.getValue());
+                            }
+                            if (items.getNodeName().equals("ZCHECKCODE")) {
+                                resultMap.put("ZCHECKCODE",items.getValue());
                             }
                         }
                         result.getItems().add(resultMap);
