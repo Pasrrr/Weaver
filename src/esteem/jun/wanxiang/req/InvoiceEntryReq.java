@@ -49,7 +49,18 @@ public class InvoiceEntryReq {
     /**以凭证货币计的税额*/
     private String 	wmwst1;
 
+    /**付款代码*/
+    private String 	ZTERM;
+
     private List<InvoiceEntryDetailReq> item;
+
+    public String getZTERM() {
+        return ZTERM;
+    }
+
+    public void setZTERM(String ZTERM) {
+        this.ZTERM = ZTERM;
+    }
 
     public String getBUKRS() {
         return BUKRS;
@@ -225,6 +236,7 @@ public class InvoiceEntryReq {
                 ", NAME_ORG1='" + NAME_ORG1 + '\'' +
                 ", LIFNR='" + LIFNR + '\'' +
                 ", wmwst1='" + wmwst1 + '\'' +
+                ", ZTERM='" + ZTERM + '\'' +
                 ", item=" + item +
                 '}';
     }

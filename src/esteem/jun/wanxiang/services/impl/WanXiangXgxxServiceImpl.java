@@ -887,6 +887,8 @@ public class WanXiangXgxxServiceImpl implements WanXiangXgxxService {
 
             /**公司代码*/
             mainInfoList.add("BUKRS");
+            /**付款代码*/
+            mainInfoList.add("ZTERM");
             /**会计凭证的凭证编号*/
             mainInfoList.add("BELNR");
             /**会计年度*/
@@ -927,6 +929,7 @@ public class WanXiangXgxxServiceImpl implements WanXiangXgxxService {
             mainInfoList.add("LIFNR");
             /**以凭证货币计的税额*/
             mainInfoList.add("WMWST");
+
             String WMWST = null2String(invoiceEntryReq.getWmwst1());
             int WMWSTLength = WMWST.length() - 1;
             String WMWSTLast = WMWST.substring(WMWSTLength);
@@ -935,6 +938,8 @@ public class WanXiangXgxxServiceImpl implements WanXiangXgxxService {
 
             /**公司代码*/
             mainFieldsMap.put("BUKRS", null2String(invoiceEntryReq.getBUKRS()));
+            /**付款代码*/
+            mainFieldsMap.put("ZTERM", null2String(invoiceEntryReq.getZTERM()));
             /**会计凭证的凭证编号*/
             mainFieldsMap.put("BELNR", null2String(invoiceEntryReq.getBELNR()));
             /**会计年度*/
