@@ -42,6 +42,36 @@ public class PurchaseOrderReq {
     private String 	EBELN;
     /**	固定资产类别	*/
     private String 	ANLKL;
+    /**	不含税价 	*/
+    private String 	NETWR;
+    /**	含税价	*/
+    private String 	BRTWR;
+    /**	万向采购进项税	*/
+    private String 	ZSE;
+
+    public String getNETWR() {
+        return NETWR;
+    }
+
+    public void setNETWR(String NETWR) {
+        this.NETWR = NETWR;
+    }
+
+    public String getBRTWR() {
+        return BRTWR;
+    }
+
+    public void setBRTWR(String BRTWR) {
+        this.BRTWR = BRTWR;
+    }
+
+    public String getZSE() {
+        return ZSE;
+    }
+
+    public void setZSE(String ZSE) {
+        this.ZSE = ZSE;
+    }
 
     public String getZTERM() {
         return ZTERM;
@@ -192,6 +222,9 @@ public class PurchaseOrderReq {
                 ", FRGZU='" + FRGZU + '\'' +
                 ", EBELN='" + EBELN + '\'' +
                 ", ANLKL='" + ANLKL + '\'' +
+                ", NETWR='" + NETWR + '\'' +
+                ", BRTWR='" + BRTWR + '\'' +
+                ", ZSE='" + ZSE + '\'' +
                 ", item=" + item +
                 '}';
     }

@@ -497,6 +497,12 @@ public class WanXiangXgxxServiceImpl implements WanXiangXgxxService {
             mainInfoList.add("WAERS");
             /**汇率*/
             mainInfoList.add("WKURS");
+            /**不含税价*/
+            mainInfoList.add("ddzje");
+            /**含税价*/
+            mainInfoList.add("ddzjews");
+            /**万向采购进项税*/
+            mainInfoList.add("se");
 
 
             Map<String, String> mainFieldsMap = new HashMap<>();
@@ -537,6 +543,12 @@ public class WanXiangXgxxServiceImpl implements WanXiangXgxxService {
             mainFieldsMap.put("WAERS", null2String(purchaseOrderReq.getWAERS()));
             /**汇率*/
             mainFieldsMap.put("WKURS", null2String(purchaseOrderReq.getWKURS()));
+            /**不含税价*/
+            mainFieldsMap.put("ddzje",null2String(purchaseOrderReq.getNETWR()));
+            /**含税价*/
+            mainFieldsMap.put("ddzjews",null2String(purchaseOrderReq.getBRTWR()));
+            /**万向采购进项税*/
+            mainFieldsMap.put("se",null2String(purchaseOrderReq.getZSE()));
 
             /*------------------------------------------明细字段处理--------------------------------------------------------------*/
             List<List<Map<String, String>>> detailLists = new ArrayList<>();
