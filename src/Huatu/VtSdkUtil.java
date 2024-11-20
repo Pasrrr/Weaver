@@ -75,6 +75,7 @@ public class VtSdkUtil {
                 if (ulHeader.getValue() == 0)
                 {
                     log.info("不是加密文件");
+                    result=1;
                 }
                 else
                 {

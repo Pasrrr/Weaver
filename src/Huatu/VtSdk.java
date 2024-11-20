@@ -39,6 +39,17 @@ import static weaver.general.xcommon.IOUtils.toByteArray;
  */
 public class VtSdk extends BaseBean implements Action {
     private Log log = LogFactory.getLog(VtSdk.class.getName());
+    //解密服务器ip
+    private  String ip;
+    //端口
+    private int port;
+    //appid
+    private String appid;
+    //key
+    private String Stringappkey;
+    //附件字段
+
+
 
     @Override
     public String execute(RequestInfo requestInfo) {
@@ -59,7 +70,7 @@ public class VtSdk extends BaseBean implements Action {
             for (int i = 0; i < docIdlist.length; i++) {
                 User user = HrmUserVarify.getUser(requestInfo.getRequestManager().getRequest(), null);
                 Map<String, String> fileInfo = VtSdkUtil.getFileInfoByDocAttachment(docIdlist[i], user);
-                int sdkReslut = VtSdkUtil.VtExtInitWithServer("10.80.11.61", 9445, "5423126BB16CC20958A0AEBB644214", "DC5747D5-0309-B900-E472-346880F3C55D", 1);
+                int sdkReslut = VtSdkUtil.VtExtInitWithServer(ip, port, appid, Stringappkey, 1);
                 byte[] headBuff = new byte[1024];
                 byte[] buffRes;
                 byte[] data = new byte[20971520];
@@ -77,6 +88,9 @@ public class VtSdk extends BaseBean implements Action {
                 //读取文件前面1024字节判断, 默认读取文件1024字节进行判断即可
                 int result = VtSdkUtil.VtExtIsCryptHeader(buffRes, nHeadLength, ulHeader);
                 //log.info("nHeadLength:" + nHeadLength + ";ulHeader:" + ulHeader);
+                if (result!=0){
+                    continue;
+                }
                 log.info("VtExtIsCryptHeader:" + result);
                 InputStream fs = new ByteArrayInputStream(buffRes);
                 ByteArrayOutputStream out = new ByteArrayOutputStream();
@@ -145,21 +159,62 @@ public class VtSdk extends BaseBean implements Action {
             }
             //当id为0时说明创建失败
             log.info("docIds:"+docIds.toString());
+            if (docIds.isEmpty()){
+                jsonObj_result.put("flag","上传文件为解密文件，无需解密");
+                requestInfo.getRequestManager().setMessage("111100");
+                requestInfo.getRequestManager().setMessagecontent("上传文件为解密文件，无需解密");
+                return Action.FAILURE_AND_CONTINUE;
+            }else {
             String jmwj=docIds.toString().replaceAll("\\[|]","");
             String sql = "update " + tableName + " set jmwj='" + jmwj.replaceAll(" ","") + "' where requestid=" + requestId;
             recordSet2.execute(sql);
-            if (docIds.size()<1) {
-                //自定义类，返回创建失败信息
-                jsonObj_result.put("flag","附件创建失败");
-                return Action.FAILURE_AND_CONTINUE;
-            } else {
-                //返回创建文档的id
-                return Action.SUCCESS;
+            //返回创建文档的id
+            return Action.SUCCESS;
             }
         } catch (Exception e) {
             //返回异常信息供前端调用
             jsonObj_result.put("flag", "代码错误");
             return Action.FAILURE_AND_CONTINUE;
         }
+    }
+
+    public Log getLog() {
+        return log;
+    }
+
+    public void setLog(Log log) {
+        this.log = log;
+    }
+
+    public String getIp() {
+        return ip;
+    }
+
+    public void setIp(String ip) {
+        this.ip = ip;
+    }
+
+    public int getPort() {
+        return port;
+    }
+
+    public void setPort(int port) {
+        this.port = port;
+    }
+
+    public String getAppid() {
+        return appid;
+    }
+
+    public void setAppid(String appid) {
+        this.appid = appid;
+    }
+
+    public String getStringappkey() {
+        return Stringappkey;
+    }
+
+    public void setStringappkey(String stringappkey) {
+        Stringappkey = stringappkey;
     }
 }
