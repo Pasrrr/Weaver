@@ -81,7 +81,7 @@ public class invoiceInfoCron extends BaseCronJob {
             }
             log.info("result-->"+result.toString());
             if("1".equals(logstatus)){
-                UF_SAP_PRO_LOG uf_sap_pro_log = new UF_SAP_PRO_LOG("商业伙伴主数据同步","0", soapXml,resultXml,result.toString(),"","","OA","-1",result.getCode(),(System.currentTimeMillis() - startTime)+"ms", InetAddress.getLocalHost().getHostAddress(),sapurl);
+                UF_SAP_PRO_LOG uf_sap_pro_log = new UF_SAP_PRO_LOG("同步发票主数据","0", soapXml,resultXml,result.toString(),"","","OA","-1",result.getCode(),(System.currentTimeMillis() - startTime)+"ms", InetAddress.getLocalHost().getHostAddress(),sapurl);
                 ModeDataUtil.SaveSapProLogInfo(uf_sap_pro_log);
             }
         }catch (Exception e) {

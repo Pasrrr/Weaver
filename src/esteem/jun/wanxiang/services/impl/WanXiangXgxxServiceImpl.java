@@ -26,6 +26,7 @@ import static weaver.general.Util.null2String;
  * @Description:
  */
 public class WanXiangXgxxServiceImpl implements WanXiangXgxxService {
+    public static final String CPUDT = "CPUDT";
     private Log log = LogFactory.getLog(WanXiangXgxxServiceImpl.class.getName());
     String sql = " select hrmresource.id,hrmresource.subcompanyid1 from hrmresource join cus_fielddata on hrmresource.id =cus_fielddata.id and cus_fielddata.SCOPEID='-1' and cus_fielddata.field13 = ?";
 
@@ -510,7 +511,6 @@ public class WanXiangXgxxServiceImpl implements WanXiangXgxxService {
             mainFieldsMap.put("bm", null2String(hrMap.get("departmentid")));
             /**申请日期*/
             mainFieldsMap.put("sqrq", null2String(df.format(now)));
-
             /**公司代码*/
             mainFieldsMap.put("BUKRS", null2String(purchaseOrderReq.getBUKRS()));
             /**创建对象的人员名称*/
@@ -1319,59 +1319,84 @@ public class WanXiangXgxxServiceImpl implements WanXiangXgxxService {
     @Override
     public ResultMesage creatSalesInvoiceMode(SalesInvoiceReq salesInvoicereq) throws UnsupportedEncodingException {
 
-            /**返回值*/
-            ResultMesage resultMesage = new ResultMesage();
-            log.info("------------------销售发货单信息接收开始--------------------");
-            for (int i = 0; i < salesInvoicereq.getItems().size(); i++) {
-                SalesInvoiceDetailReq salesInvoiceDetailReq = salesInvoicereq.getItems().get(i);
-                Map<String, Object> Mapdetail = new HashMap<>();
-                log.info("参数信息：" + salesInvoiceDetailReq.toString());
-                /**交货单*/
-                Mapdetail.put("VBELN", null2String(salesInvoiceDetailReq.getVBELN()));
-                /**交货行*/
-                Mapdetail.put("POSNR", null2String(salesInvoiceDetailReq.getPOSNR()));
-                /**物料号*/
-                Mapdetail.put("MATNR", null2String(salesInvoiceDetailReq.getMATNR()));
-                /**物料名称*/
-                Mapdetail.put("ARKTX", null2String(salesInvoiceDetailReq.getARKTX()));
-                /**交货数量*/
-                Mapdetail.put("LFIMG", null2String(salesInvoiceDetailReq.getLFIMG()));
-                /**实际交货数量*/
-                Mapdetail.put("LGMNG", null2String(salesInvoiceDetailReq.getLGMNG()));
-                /**计量单位*/
-                Mapdetail.put("MEINS", null2String(salesInvoiceDetailReq.getMEINS()));
-                /**创建人*/
-                Mapdetail.put("ERNAM", null2String(salesInvoiceDetailReq.getERNAM()));
-                /**创建日期*/
-                Mapdetail.put("ERDAT", null2String(salesInvoiceDetailReq.getERDAT()));
-                /**工厂*/
-                Mapdetail.put("WERKS", null2String(salesInvoiceDetailReq.getWERKS()));
-                /**存储地点*/
-                Mapdetail.put("LGORT", null2String(salesInvoiceDetailReq.getLGORT()));
-                /**参考凭证*/
-                Mapdetail.put("VGBEL", null2String(salesInvoiceDetailReq.getVGBEL()));
-                /**参考行*/
-                Mapdetail.put("VGPOS", null2String(salesInvoiceDetailReq.getVGPOS()));
-                /**收货方*/
-                Mapdetail.put("KUNNR", null2String(salesInvoiceDetailReq.getKUNNR()));
-                /**送达方*/
-                Mapdetail.put("KUNAG", null2String(salesInvoiceDetailReq.getKUNAG()));
-                /**物料凭证*/
-                Mapdetail.put("MBLNR", null2String(salesInvoiceDetailReq.getMBLNR()));
-                /**客户物料*/
-                Mapdetail.put("KDMAT", null2String(salesInvoiceDetailReq.getKDMAT()));
+        /**返回值*/
+        ResultMesage resultMesage = new ResultMesage();
+        log.info("------------------销售发货单信息接收开始--------------------");
+        for (int i = 0; i < salesInvoicereq.getItems().size(); i++) {
+            SalesInvoiceDetailReq salesInvoiceDetailReq = salesInvoicereq.getItems().get(i);
+            Map<String, Object> Mapdetail = new HashMap<>();
+            log.info("参数信息：" + salesInvoiceDetailReq.toString());
+            /**交货单*/
+            Mapdetail.put("VBELN", null2String(salesInvoiceDetailReq.getVBELN()));
+            /**交货行*/
+            Mapdetail.put("POSNR", null2String(salesInvoiceDetailReq.getPOSNR()));
+            /**交货单——行号*/
+            Mapdetail.put("jhdhang",null2String(salesInvoiceDetailReq.getVBELN()) + "_" + null2String(salesInvoiceDetailReq.getPOSNR()));
+            /**物料号*/
+            Mapdetail.put("MATNR", null2String(salesInvoiceDetailReq.getMATNR()));
+            /**物料名称*/
+            Mapdetail.put("ARKTX", null2String(salesInvoiceDetailReq.getARKTX()));
+            /**交货数量*/
+            Mapdetail.put("LFIMG", null2String(salesInvoiceDetailReq.getLFIMG()));
+            /**实际交货数量*/
+            Mapdetail.put("LGMNG", null2String(salesInvoiceDetailReq.getLGMNG()));
+            /**计量单位*/
+            Mapdetail.put("MEINS", null2String(salesInvoiceDetailReq.getMEINS()));
+            /**创建人*/
+            Mapdetail.put("ERNAM", null2String(salesInvoiceDetailReq.getERNAM()));
+            /**创建日期*/
+            Mapdetail.put("ERDAT", null2String(salesInvoiceDetailReq.getERDAT()));
+            /**工厂*/
+            Mapdetail.put("WERKS", null2String(salesInvoiceDetailReq.getWERKS()));
+            /**存储地点*/
+            Mapdetail.put("LGORT", null2String(salesInvoiceDetailReq.getLGORT()));
+            /**参考凭证*/
+            Mapdetail.put("VGBEL", null2String(salesInvoiceDetailReq.getVGBEL()));
+            /**参考行*/
+            Mapdetail.put("VGPOS", null2String(salesInvoiceDetailReq.getVGPOS()));
+            /**收货方*/
+            Mapdetail.put("KUNNR", null2String(salesInvoiceDetailReq.getKUNNR()));
+            /**送达方*/
+            Mapdetail.put("KUNAG", null2String(salesInvoiceDetailReq.getKUNAG()));
+            /**物料凭证*/
+            Mapdetail.put("MBLNR", null2String(salesInvoiceDetailReq.getMBLNR()));
+            /**客户物料*/
+            Mapdetail.put("KDMAT", null2String(salesInvoiceDetailReq.getKDMAT()));
+            /**过账状态*/
+            Mapdetail.put("WBSTA", null2String(salesInvoiceDetailReq.getWBSTA()));
+            /**输入日期*/
+            Mapdetail.put("CPUDT", null2String(salesInvoiceDetailReq.getCPUDT()));
+            /**输入时间*/
+            Mapdetail.put("CPUTM", null2String(salesInvoiceDetailReq.getCPUTM()));
+            /**过账日期*/
+            Mapdetail.put("BUDAT", null2String(salesInvoiceDetailReq.getBUDAT()));
+            /**用户名*/
+            Mapdetail.put("USNAM", null2String(salesInvoiceDetailReq.getUSNAM()));
+            /**第一次剩余未出门*/
+            Mapdetail.put("sywcm",null2String(salesInvoiceDetailReq.getLFIMG()));
+            Mapdetail.put("ycmsl",0);
 
-                ModeDataUtil.SaveModeDataInfo(Mapdetail, "239", "1");
+            RecordSet recordSet = new RecordSet();
+            String sql="select * from uf_xsfhd where VBELN ='" + null2String(salesInvoiceDetailReq.getVBELN()) + "' and POSNR = '" + null2String(salesInvoiceDetailReq.getPOSNR()) + "' ";
+            recordSet.execute(sql);
+            if(recordSet.next()){
+                Mapdetail.put("sywcm",Util.null2String(recordSet.getString("sywcm")));
+                Mapdetail.put("ycmsl",Util.null2String(recordSet.getString("ycmsl")));
+                Mapdetail.put("id",Util.null2String(recordSet.getString("id")));
+                log.info(Util.null2String(recordSet.getString("id")));
             }
-            resultMesage.setFlag("0");
-            resultMesage.setMessage("信息接收成功");
-            resultMesage.setDjbh("");
-            log.info("------------------销售发货单信息接收成功--------------------");
-            return resultMesage;
+            log.info(Mapdetail.toString());
+            ModeDataUtil.SaveModeDataInfo(Mapdetail, "248", "1");
+        }
+
+        resultMesage.setFlag("0");
+        resultMesage.setMessage("信息接收成功");
+        resultMesage.setDjbh("");
+        log.info("------------------销售发货单信息接收成功--------------------");
+        return resultMesage;
 
 
     }
-
 
     @Override
     public ResultMesage creatProjectMaterialWorkFlow(ProjectMaterialReq projectMaterialReq) throws UnsupportedEncodingException {
