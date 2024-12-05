@@ -16,6 +16,8 @@ public class PurchaseRequisitionDetailReq {
     private String PSTYP;
     /**成本中心*/
     private String KOSTL;
+    /**总账科目*/
+    private String SAKTO;
     /**物料编码*/
     private String MATNR;
     /**物料描述*/
@@ -32,12 +34,10 @@ public class PurchaseRequisitionDetailReq {
     private String WERKS;
     /**采购组*/
     private String EKGRP;
-
     /**采购申请中的价格*/
     private String PREIS;
     /**价格单位*/
     private String PEINH;
-
     /**删除标识*/
     private String LOEKZ;
     /**批准标识*/
@@ -54,7 +54,6 @@ public class PurchaseRequisitionDetailReq {
     private String ZSHYCHX;
     /**具体使用设备*/
     private String ZSHYSHB;
-
     /**需求人*/
     private String AFNAM;
     /**	最低订单单价 	*/
@@ -67,6 +66,14 @@ public class PurchaseRequisitionDetailReq {
     private String 	ZLASTDT;
     /**	币种	*/
     private String 	WAERS;
+
+    public String getSAKTO() {
+        return SAKTO;
+    }
+
+    public void setSAKTO(String SAKTO) {
+        this.SAKTO = SAKTO;
+    }
 
     public String getWAERS() {
         return WAERS;

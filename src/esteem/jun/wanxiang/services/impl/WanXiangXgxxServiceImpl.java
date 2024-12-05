@@ -161,6 +161,11 @@ public class WanXiangXgxxServiceImpl implements WanXiangXgxxService {
                 dt1Map.put("ZLASTDT", null2String(purchaseRequisitionDetailReq.getZLASTDT()));
                 /**币种*/
                 dt1Map.put("WAERS", null2String(purchaseRequisitionDetailReq.getWAERS()));
+                /**成本中心*/
+                dt1Map.put("KOSTL", null2String(purchaseRequisitionDetailReq.getKOSTL()));
+                /**总账科目*/
+                dt1Map.put("SAKTO", null2String(purchaseRequisitionDetailReq.getSAKTO()));
+
                 detail1List.add(dt1Map);
             }
             detailLists.add(detail1List);
