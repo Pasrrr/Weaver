@@ -1,0 +1,48 @@
+2023-11-24 15:30:25,254 main 0    INFO: POST
+/
+
+content-type:application/json; charset=utf-8
+host:cvm.tencentcloudapi.com
+x-tc-action:describeinstances
+
+content-type;host;x-tc-action
+35e9c5b0e3ae67532d3c9f17ead6c90222632e5b1ff7f6e89887f1398934f064
+2023-11-24 15:30:25,257 main 3    INFO: TC3-HMAC-SHA256
+1551113065
+2019-02-25/ess/tc3_request
+7019a55be8395899b900fb5564e4200d984910f34794a27cb3fb7d10ff6a1e84
+2023-11-24 15:30:25,825 main 571  INFO: 820e6004e449750ef572243b15f2a0c949679f264075aea7ae9ad7fed54b8227
+2023-11-24 15:30:25,825 main 571  INFO: TC3-HMAC-SHA256 Credential=AKyDwiuUUckpog784mUERg3wzy272MnWtZ/2019-02-25/ess/tc3_request, SignedHeaders=content-type;host;x-tc-action, Signature=820e6004e449750ef572243b15f2a0c949679f264075aea7ae9ad7fed54b8227
+2023-11-24 15:30:27,174 main 1920 INFO: code:200{"Response":{"CreateEmployeeResult":{"FailedEmployeeData":[],"SuccessEmployeeData":[{"DisplayName":"张三","Mobile":"13588024036","Note":"","UserId":"yDSLcUUckpoeldu1UupHdRu1gEl49G9k","WeworkOpenId":""}]},"RequestId":"304ba89e-bfbd-4afd-aab5-b27798f9656e"}}
+2023-11-24 15:31:08,472 main 0    INFO: POST
+/
+
+content-type:application/json; charset=utf-8
+host:cvm.tencentcloudapi.com
+x-tc-action:describeinstances
+
+content-type;host;x-tc-action
+35e9c5b0e3ae67532d3c9f17ead6c90222632e5b1ff7f6e89887f1398934f064
+2023-11-24 15:31:08,473 main 1    INFO: TC3-HMAC-SHA256
+1551113065
+2019-02-25/ess/tc3_request
+7019a55be8395899b900fb5564e4200d984910f34794a27cb3fb7d10ff6a1e84
+2023-11-24 15:31:08,873 main 401  INFO: 820e6004e449750ef572243b15f2a0c949679f264075aea7ae9ad7fed54b8227
+2023-11-24 15:31:08,874 main 402  INFO: TC3-HMAC-SHA256 Credential=AKyDwiuUUckpog784mUERg3wzy272MnWtZ/2019-02-25/ess/tc3_request, SignedHeaders=content-type;host;x-tc-action, Signature=820e6004e449750ef572243b15f2a0c949679f264075aea7ae9ad7fed54b8227
+2023-11-24 15:31:10,227 main 1755 INFO: code:200{"Response":{"CreateEmployeeResult":{"FailedEmployeeData":[],"SuccessEmployeeData":[{"DisplayName":"张三","Mobile":"13588024036","Note":"未实名已重发邀请短信","UserId":"yDSLcUUckpoeldu1UupHdRu1gEl49G9k","WeworkOpenId":""}]},"RequestId":"7e00839a-0ddb-4bac-9a8e-4b90cbfe87ae"}}
+2023-11-24 15:40:14,560 main 0    INFO: POST
+/
+
+content-type:application/json; charset=utf-8
+host:cvm.tencentcloudapi.com
+x-tc-action:describeinstances
+
+content-type;host;x-tc-action
+35e9c5b0e3ae67532d3c9f17ead6c90222632e5b1ff7f6e89887f1398934f064
+2023-11-24 15:40:14,562 main 2    INFO: TC3-HMAC-SHA256
+1551113065
+2019-02-25/ess/tc3_request
+7019a55be8395899b900fb5564e4200d984910f34794a27cb3fb7d10ff6a1e84
+2023-11-24 15:40:14,980 main 420  INFO: 820e6004e449750ef572243b15f2a0c949679f264075aea7ae9ad7fed54b8227
+2023-11-24 15:40:14,980 main 420  INFO: TC3-HMAC-SHA256 Credential=AKyDwiuUUckpog784mUERg3wzy272MnWtZ/2019-02-25/ess/tc3_request, SignedHeaders=content-type;host;x-tc-action, Signature=820e6004e449750ef572243b15f2a0c949679f264075aea7ae9ad7fed54b8227
+2023-11-24 15:40:16,627 main 2067 INFO: code:200{"Response":{"CreateEmployeeResult":{"FailedEmployeeData":[{"DisplayName":"张三","Mobile":"13588024036","Reason":"添加失败，超过当日次数限制，您可以在小程序端给对方发送“加入企业邀请码”","WeworkOpenId":""}],"SuccessEmployeeData":[]},"RequestId":"3311af64-1423-4a0b-9766-9494b41f911e"}}

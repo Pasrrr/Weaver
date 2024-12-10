@@ -1,0 +1,190 @@
+2023-11-23 13:49:50,430 main 0    INFO: POST
+/
+
+content-type:application/json; charset=utf-8
+host:cvm.tencentcloudapi.com
+x-tc-action:describeinstances
+
+content-type;host;x-tc-action
+35e9c5b0e3ae67532d3c9f17ead6c90222632e5b1ff7f6e89887f1398934f064
+2023-11-23 13:49:50,434 main 4    INFO: TC3-HMAC-SHA256
+1551113065
+2019-02-25/cvm/tc3_request
+7019a55be8395899b900fb5564e4200d984910f34794a27cb3fb7d10ff6a1e84
+2023-11-23 13:49:50,437 main 7    INFO: 4dcc9b286d79631f1be983d15540d59a8c7223a4fb83595ea2f1113c3d04987e
+2023-11-23 13:49:50,437 main 7    INFO: TC3-HMAC-SHA256 Credential=AKyDwiuUUckpog784mUERg3wzy272MnWtZ/2019-02-25/cvm/tc3_request, SignedHeaders=content-type;host;x-tc-action, Signature=4dcc9b286d79631f1be983d15540d59a8c7223a4fb83595ea2f1113c3d04987e
+2023-11-23 13:49:50,962 main 532  INFO: code:200{"Response":{"Error":{"Code":"InternalError","Message":"Service Error"},"RequestId":"cb5a8358-f0cc-4c24-b40f-79e316c1fee3"}}
+2023-11-23 13:50:55,004 main 0    INFO: POST
+/
+
+content-type:application/json; charset=utf-8
+host:cvm.tencentcloudapi.com
+x-tc-action:describeinstances
+
+content-type;host;x-tc-action
+35e9c5b0e3ae67532d3c9f17ead6c90222632e5b1ff7f6e89887f1398934f064
+2023-11-23 13:50:55,004 main 0    INFO: TC3-HMAC-SHA256
+1551113065
+2019-02-25/cvm/tc3_request
+7019a55be8395899b900fb5564e4200d984910f34794a27cb3fb7d10ff6a1e84
+2023-11-23 13:50:55,007 main 3    INFO: 4dcc9b286d79631f1be983d15540d59a8c7223a4fb83595ea2f1113c3d04987e
+2023-11-23 13:50:55,007 main 3    INFO: TC3-HMAC-SHA256 Credential=AKyDwiuUUckpog784mUERg3wzy272MnWtZ/2019-02-25/cvm/tc3_request, SignedHeaders=content-type;host;x-tc-action, Signature=4dcc9b286d79631f1be983d15540d59a8c7223a4fb83595ea2f1113c3d04987e
+2023-11-23 13:50:55,408 main 404  INFO: code:200{"Response":{"Error":{"Code":"InternalError","Message":"Service Error"},"RequestId":"27351da9-a0d5-4da2-acb0-b9a40720d985"}}
+2023-11-23 13:55:28,477 main 0    INFO: POST
+/
+
+content-type:application/json; charset=utf-8
+host:cvm.tencentcloudapi.com
+x-tc-action:describeinstances
+
+content-type;host;x-tc-action
+35e9c5b0e3ae67532d3c9f17ead6c90222632e5b1ff7f6e89887f1398934f064
+2023-11-23 13:55:28,478 main 1    INFO: TC3-HMAC-SHA256
+1551113065
+2019-02-25/cvm/tc3_request
+7019a55be8395899b900fb5564e4200d984910f34794a27cb3fb7d10ff6a1e84
+2023-11-23 13:55:28,480 main 3    INFO: 4dcc9b286d79631f1be983d15540d59a8c7223a4fb83595ea2f1113c3d04987e
+2023-11-23 13:55:28,480 main 3    INFO: TC3-HMAC-SHA256 Credential=AKyDwiuUUckpog784mUERg3wzy272MnWtZ/2019-02-25/cvm/tc3_request, SignedHeaders=content-type;host;x-tc-action, Signature=4dcc9b286d79631f1be983d15540d59a8c7223a4fb83595ea2f1113c3d04987e
+2023-11-23 13:55:28,896 main 419  INFO: code:200{"Response":{"Error":{"Code":"InternalError","Message":"Service Error"},"RequestId":"0e6db199-ac3d-4842-b6ac-6b085e46a4e7"}}
+2023-11-23 13:55:56,316 main 0    INFO: POST
+/
+
+content-type:application/json; charset=utf-8
+host:cvm.tencentcloudapi.com
+x-tc-action:describeinstances
+
+content-type;host;x-tc-action
+35e9c5b0e3ae67532d3c9f17ead6c90222632e5b1ff7f6e89887f1398934f064
+2023-11-23 13:55:56,318 main 2    INFO: TC3-HMAC-SHA256
+1551113065
+2019-02-25/cvm/tc3_request
+7019a55be8395899b900fb5564e4200d984910f34794a27cb3fb7d10ff6a1e84
+2023-11-23 13:55:56,321 main 5    INFO: 4dcc9b286d79631f1be983d15540d59a8c7223a4fb83595ea2f1113c3d04987e
+2023-11-23 13:55:56,321 main 5    INFO: TC3-HMAC-SHA256 Credential=AKyDwiuUUckpog784mUERg3wzy272MnWtZ/2019-02-25/cvm/tc3_request, SignedHeaders=content-type;host;x-tc-action, Signature=4dcc9b286d79631f1be983d15540d59a8c7223a4fb83595ea2f1113c3d04987e
+2023-11-23 13:55:56,785 main 469  INFO: code:200{"Response":{"Error":{"Code":"InternalError","Message":"Service Error"},"RequestId":"30481f7d-8fe5-4a76-b5a7-d9d3b6254751"}}
+2023-11-23 13:56:15,979 main 0    INFO: POST
+/
+
+content-type:application/json; charset=utf-8
+host:cvm.tencentcloudapi.com
+x-tc-action:describeinstances
+
+content-type;host;x-tc-action
+35e9c5b0e3ae67532d3c9f17ead6c90222632e5b1ff7f6e89887f1398934f064
+2023-11-23 13:56:15,980 main 1    INFO: TC3-HMAC-SHA256
+1551113065
+2019-02-25/cvm/tc3_request
+7019a55be8395899b900fb5564e4200d984910f34794a27cb3fb7d10ff6a1e84
+2023-11-23 13:56:15,983 main 4    INFO: 4dcc9b286d79631f1be983d15540d59a8c7223a4fb83595ea2f1113c3d04987e
+2023-11-23 13:56:15,984 main 5    INFO: TC3-HMAC-SHA256 Credential=AKyDwiuUUckpog784mUERg3wzy272MnWtZ/2019-02-25/cvm/tc3_request, SignedHeaders=content-type;host;x-tc-action, Signature=4dcc9b286d79631f1be983d15540d59a8c7223a4fb83595ea2f1113c3d04987e
+2023-11-23 13:56:16,433 main 454  INFO: code:200{"Response":{"Error":{"Code":"InternalError","Message":"Service Error"},"RequestId":"fc508014-15ee-4757-96c5-049531fd2d6c"}}
+2023-11-23 13:56:49,362 main 0    INFO: POST
+/
+
+content-type:application/json; charset=utf-8
+host:cvm.tencentcloudapi.com
+x-tc-action:describeinstances
+
+content-type;host;x-tc-action
+35e9c5b0e3ae67532d3c9f17ead6c90222632e5b1ff7f6e89887f1398934f064
+2023-11-23 13:56:49,364 main 2    INFO: TC3-HMAC-SHA256
+1551113065
+2019-02-25/cvm/tc3_request
+7019a55be8395899b900fb5564e4200d984910f34794a27cb3fb7d10ff6a1e84
+2023-11-23 13:56:49,366 main 4    INFO: 4dcc9b286d79631f1be983d15540d59a8c7223a4fb83595ea2f1113c3d04987e
+2023-11-23 13:56:49,367 main 5    INFO: TC3-HMAC-SHA256 Credential=AKyDwiuUUckpog784mUERg3wzy272MnWtZ/2019-02-25/cvm/tc3_request, SignedHeaders=content-type;host;x-tc-action, Signature=4dcc9b286d79631f1be983d15540d59a8c7223a4fb83595ea2f1113c3d04987e
+2023-11-23 13:56:49,860 main 498  INFO: code:200{"Response":{"Error":{"Code":"InternalError","Message":"Service Error"},"RequestId":"7ccf25a3-e453-4ff7-93df-7851b7c3c489"}}
+2023-11-23 13:58:16,718 main 0    INFO: POST
+/
+
+content-type:application/json; charset=utf-8
+host:cvm.tencentcloudapi.com
+x-tc-action:describeinstances
+
+content-type;host;x-tc-action
+35e9c5b0e3ae67532d3c9f17ead6c90222632e5b1ff7f6e89887f1398934f064
+2023-11-23 13:58:16,719 main 1    INFO: TC3-HMAC-SHA256
+1551113065
+2019-02-25/cvm/tc3_request
+7019a55be8395899b900fb5564e4200d984910f34794a27cb3fb7d10ff6a1e84
+2023-11-23 13:58:16,722 main 4    INFO: 4dcc9b286d79631f1be983d15540d59a8c7223a4fb83595ea2f1113c3d04987e
+2023-11-23 13:58:16,722 main 4    INFO: TC3-HMAC-SHA256 Credential=AKyDwiuUUckpog784mUERg3wzy272MnWtZ/2019-02-25/cvm/tc3_request, SignedHeaders=content-type;host;x-tc-action, Signature=4dcc9b286d79631f1be983d15540d59a8c7223a4fb83595ea2f1113c3d04987e
+2023-11-23 13:58:17,242 main 524  INFO: code:200{"Response":{"Error":{"Code":"InternalError","Message":"Service Error"},"RequestId":"efe26d1f-5802-4df0-a786-5b97f7fbf231"}}
+2023-11-23 14:00:09,208 main 0    INFO: POST
+/
+
+content-type:application/json; charset=utf-8
+host:cvm.tencentcloudapi.com
+x-tc-action:describeinstances
+
+content-type;host;x-tc-action
+35e9c5b0e3ae67532d3c9f17ead6c90222632e5b1ff7f6e89887f1398934f064
+2023-11-23 14:00:09,209 main 1    INFO: TC3-HMAC-SHA256
+1551113065
+2019-02-25/cvm/tc3_request
+7019a55be8395899b900fb5564e4200d984910f34794a27cb3fb7d10ff6a1e84
+2023-11-23 14:00:09,211 main 3    INFO: 4dcc9b286d79631f1be983d15540d59a8c7223a4fb83595ea2f1113c3d04987e
+2023-11-23 14:00:09,211 main 3    INFO: TC3-HMAC-SHA256 Credential=AKyDwiuUUckpog784mUERg3wzy272MnWtZ/2019-02-25/cvm/tc3_request, SignedHeaders=content-type;host;x-tc-action, Signature=4dcc9b286d79631f1be983d15540d59a8c7223a4fb83595ea2f1113c3d04987e
+2023-11-23 14:00:09,211 main 3    INFO: POST
+/
+
+content-type:application/json; charset=utf-8
+host:cvm.tencentcloudapi.com
+x-tc-action:describeinstances
+
+content-type;host;x-tc-action
+35e9c5b0e3ae67532d3c9f17ead6c90222632e5b1ff7f6e89887f1398934f064
+2023-11-23 14:00:09,211 main 3    INFO: TC3-HMAC-SHA256
+1551113065
+2019-02-25/cvm/tc3_request
+7019a55be8395899b900fb5564e4200d984910f34794a27cb3fb7d10ff6a1e84
+2023-11-23 14:00:09,212 main 4    INFO: 4dcc9b286d79631f1be983d15540d59a8c7223a4fb83595ea2f1113c3d04987e
+2023-11-23 14:00:09,212 main 4    INFO: TC3-HMAC-SHA256 Credential=AKyDwiuUUckpog784mUERg3wzy272MnWtZ/2019-02-25/cvm/tc3_request, SignedHeaders=content-type;host;x-tc-action, Signature=4dcc9b286d79631f1be983d15540d59a8c7223a4fb83595ea2f1113c3d04987e
+2023-11-23 14:00:09,616 main 408  INFO: code:200{"Response":{"Error":{"Code":"InternalError","Message":"Service Error"},"RequestId":"fc6ac303-d0b6-49a7-b436-c199a3b8786a"}}
+2023-11-23 14:02:08,470 main 0    INFO: POST
+/
+
+content-type:application/json; charset=utf-8
+host:cvm.tencentcloudapi.com
+x-tc-action:describeinstances
+
+content-type;host;x-tc-action
+35e9c5b0e3ae67532d3c9f17ead6c90222632e5b1ff7f6e89887f1398934f064
+2023-11-23 14:02:08,471 main 1    INFO: TC3-HMAC-SHA256
+1551113065
+2019-02-25/cvm/tc3_request
+7019a55be8395899b900fb5564e4200d984910f34794a27cb3fb7d10ff6a1e84
+2023-11-23 14:02:08,474 main 4    INFO: 4dcc9b286d79631f1be983d15540d59a8c7223a4fb83595ea2f1113c3d04987e
+2023-11-23 14:02:08,474 main 4    INFO: TC3-HMAC-SHA256 Credential=AKyDwiuUUckpog784mUERg3wzy272MnWtZ/2019-02-25/cvm/tc3_request, SignedHeaders=content-type;host;x-tc-action, Signature=4dcc9b286d79631f1be983d15540d59a8c7223a4fb83595ea2f1113c3d04987e
+2023-11-23 14:02:09,415 main 945  INFO: code:200{"Response":{"CreateEmployeeResult":{"FailedEmployeeData":[],"SuccessEmployeeData":[{"DisplayName":"张三","Mobile":"13588024036","Note":"","UserId":"yDSLcUUckpoelgwdUupHdRuusCZBhewP","WeworkOpenId":""}]},"RequestId":"51a01a61-1fd8-49ed-b223-8dacd5a1531b"}}
+2023-11-23 14:08:18,061 main 0    INFO: POST
+/
+
+content-type:application/json; charset=utf-8
+host:cvm.tencentcloudapi.com
+x-tc-action:describeinstances
+
+content-type;host;x-tc-action
+35e9c5b0e3ae67532d3c9f17ead6c90222632e5b1ff7f6e89887f1398934f064
+2023-11-23 14:08:18,063 main 2    INFO: TC3-HMAC-SHA256
+1551113065
+2019-02-25/ess/tc3_request
+7019a55be8395899b900fb5564e4200d984910f34794a27cb3fb7d10ff6a1e84
+2023-11-23 14:08:18,066 main 5    INFO: 820e6004e449750ef572243b15f2a0c949679f264075aea7ae9ad7fed54b8227
+2023-11-23 14:08:18,066 main 5    INFO: TC3-HMAC-SHA256 Credential=AKyDwiuUUckpog784mUERg3wzy272MnWtZ/2019-02-25/ess/tc3_request, SignedHeaders=content-type;host;x-tc-action, Signature=820e6004e449750ef572243b15f2a0c949679f264075aea7ae9ad7fed54b8227
+2023-11-23 14:08:18,066 main 5    INFO: POST
+/
+
+content-type:application/json; charset=utf-8
+host:cvm.tencentcloudapi.com
+x-tc-action:describeinstances
+
+content-type;host;x-tc-action
+35e9c5b0e3ae67532d3c9f17ead6c90222632e5b1ff7f6e89887f1398934f064
+2023-11-23 14:08:18,067 main 6    INFO: TC3-HMAC-SHA256
+1551113065
+2019-02-25/ess/tc3_request
+7019a55be8395899b900fb5564e4200d984910f34794a27cb3fb7d10ff6a1e84
+2023-11-23 14:08:18,067 main 6    INFO: 820e6004e449750ef572243b15f2a0c949679f264075aea7ae9ad7fed54b8227
+2023-11-23 14:08:18,068 main 7    INFO: TC3-HMAC-SHA256 Credential=AKyDwiuUUckpog784mUERg3wzy272MnWtZ/2019-02-25/ess/tc3_request, SignedHeaders=content-type;host;x-tc-action, Signature=820e6004e449750ef572243b15f2a0c949679f264075aea7ae9ad7fed54b8227
+2023-11-23 14:08:18,890 main 829  INFO: code:200{"Response":{"CreateEmployeeResult":{"FailedEmployeeData":[],"SuccessEmployeeData":[{"DisplayName":"张三","Mobile":"13588024036","Note":"未实名已重发邀请短信","UserId":"yDSLcUUckpoelgwdUupHdRuusCZBhewP","WeworkOpenId":""}]},"RequestId":"74e83415-171d-4584-a5a5-de75f709a721"}}

@@ -1,0 +1,1 @@
+2024-02-05 08:37:40,878 main 0    INFO: code:200{"Response":{"Error":{"Code":"AuthFailure.SignatureFailure","Message":"The provided credentials could not be validated. Please check your signature is correct."},"RequestId":"5b1ad098-aa95-4131-96ae-520218c7f43b"}}

@@ -1,0 +1,9 @@
+<component name="libraryTable">
+  <library name="32-jre">
+    <CLASSES>
+      <root url="file://$PROJECT_DIR$/../Software/32-jre" />
+    </CLASSES>
+    <JAVADOC />
+    <SOURCES />
+  </library>
+</component>

@@ -1,0 +1,17 @@
+2024-01-27 14:15:04,544 main 0    INFO: POST
+/
+
+content-type:application/json; charset=utf-8
+host:cvm.tencentcloudapi.com
+x-tc-action:describeinstances
+
+content-type;host;x-tc-action
+35e9c5b0e3ae67532d3c9f17ead6c90222632e5b1ff7f6e89887f1398934f064
+2024-01-27 14:15:04,546 main 2    INFO: TC3-HMAC-SHA256
+1551113065
+2019-02-25/ess/tc3_request
+7019a55be8395899b900fb5564e4200d984910f34794a27cb3fb7d10ff6a1e84
+2024-01-27 14:15:04,884 main 340  INFO: 820e6004e449750ef572243b15f2a0c949679f264075aea7ae9ad7fed54b8227
+2024-01-27 14:15:04,884 main 340  INFO: TC3-HMAC-SHA256 Credential=AKyDwiuUUckpog784mUERg3wzy272MnWtZ/2019-02-25/ess/tc3_request, SignedHeaders=content-type;host;x-tc-action, Signature=820e6004e449750ef572243b15f2a0c949679f264075aea7ae9ad7fed54b8227
+2024-01-27 14:15:05,472 main 928  INFO: code:200{"Response":{"Error":{"Code":"UnauthorizedOperation","Message":"您当前正在使用【自建应用集成】功能，【专业版】已过期，重新购买后可继续使用"},"RequestId":"11a760a7-af12-4749-8af1-4dc51ec99a93"}}
+2024-01-27 14:15:05,496 main 952  INFO: Result:{"Response":{"Error":{"Code":"UnauthorizedOperation","Message":"您当前正在使用【自建应用集成】功能，【专业版】已过期，重新购买后可继续使用"},"RequestId":"11a760a7-af12-4749-8af1-4dc51ec99a93"}}
