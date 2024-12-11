@@ -80,6 +80,8 @@ public class WanXiangXgxxServiceImpl implements WanXiangXgxxService {
             mainInfoList.add("BSART");
             /**采购申请类型描述 */
             mainInfoList.add("BATXT");
+            /**采购申请抬头注释*/
+            mainInfoList.add("bz");
 
             Map<String, String> mainFieldsMap = new HashMap<>();
             /**经办人*/
@@ -94,6 +96,8 @@ public class WanXiangXgxxServiceImpl implements WanXiangXgxxService {
             mainFieldsMap.put("BSART", null2String(purchaseRequisitionReq.getBSART()));
             /**采购申请类型描述*/
             mainFieldsMap.put("BATXT", null2String(purchaseRequisitionReq.getBATXT()));
+            /**采购申请抬头注释*/
+            mainFieldsMap.put("bz", null2String(purchaseRequisitionReq.getZEBANH()));
             /*------------------------------------------明细字段处理--------------------------------------------------------------*/
             List<List<Map<String, String>>> detailLists = new ArrayList<>();
             List<Map<String, String>> detail1List = new ArrayList<>();
@@ -169,7 +173,12 @@ public class WanXiangXgxxServiceImpl implements WanXiangXgxxService {
                 detail1List.add(dt1Map);
             }
             detailLists.add(detail1List);
-            String _ret = creatWorkFlow(workflowid, mainInfoList, mainFieldsMap, detailLists, createrId, hrMap.get("lastname"));
+            String _ret="";
+            if ("99".equals(subcompanyid1)){
+                _ret = creatWorkFlowToNext(workflowid, mainInfoList, mainFieldsMap, detailLists, createrId, hrMap.get("lastname"));
+            }else{
+                _ret = creatWorkFlow(workflowid, mainInfoList, mainFieldsMap, detailLists, createrId, hrMap.get("lastname"));
+            }
             //单据编号
             resultMesage.setDjbh(_ret);
             log.info("结果：" + _ret);

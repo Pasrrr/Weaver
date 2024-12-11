@@ -18,6 +18,16 @@ public class PurchaseRequisitionReq {
     private String 	BSART;
     /**	采购申请类型描述	*/
     private String 	BATXT;
+    /**采购申请抬头注释*/
+    private String 	ZEBANH;
+
+    public String getZEBANH() {
+        return ZEBANH;
+    }
+
+    public void setZEBANH(String ZEBANH) {
+        this.ZEBANH = ZEBANH;
+    }
 
     public String getBSART() {
         return BSART;
@@ -68,6 +78,7 @@ public class PurchaseRequisitionReq {
                 ", BNAME='" + BNAME + '\'' +
                 ", BSART='" + BSART + '\'' +
                 ", BATXT='" + BATXT + '\'' +
+                ", ZEBANH='" + ZEBANH + '\'' +
                 ", item=" + item +
                 '}';
     }
