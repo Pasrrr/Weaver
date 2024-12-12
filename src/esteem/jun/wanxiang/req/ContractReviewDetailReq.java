@@ -40,6 +40,16 @@ public class ContractReviewDetailReq {
     private String  BRTWR;
     /**申请人*/
     private String  AFNAM;
+    /**资产号*/
+    private String EKKN_ANLN1;
+
+    public String getEKKN_ANLN1() {
+        return EKKN_ANLN1;
+    }
+
+    public void setEKKN_ANLN1(String EKKN_ANLN1) {
+        this.EKKN_ANLN1 = EKKN_ANLN1;
+    }
 
     public String getAFNAM() {
         return AFNAM;
@@ -188,6 +198,7 @@ public class ContractReviewDetailReq {
                 ", NETPR='" + NETPR + '\'' +
                 ", BRTWR='" + BRTWR + '\'' +
                 ", AFNAM='" + AFNAM + '\'' +
+                ", EKKN_ANLN1='" + EKKN_ANLN1 + '\'' +
                 '}';
     }
 }

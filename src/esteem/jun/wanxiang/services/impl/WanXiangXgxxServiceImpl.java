@@ -758,6 +758,8 @@ public class WanXiangXgxxServiceImpl implements WanXiangXgxxService {
                     dt1Map.put("BRTWR", null2String(contracctReviewDetailReq.getBRTWR()));
                     /**需求人*/
                     dt1Map.put("AFNAM", null2String(contracctReviewDetailReq.getAFNAM()));
+                    /**资产号*/
+                    dt1Map.put("EKKN_ANLN1", null2String(contracctReviewDetailReq.getEKKN_ANLN1()));
                     log.info("参数信息：" + dt1Map.toString());
                     detail1List.add(dt1Map);
                 }
