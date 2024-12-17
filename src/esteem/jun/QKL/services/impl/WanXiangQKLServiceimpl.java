@@ -26,6 +26,7 @@ public class WanXiangQKLServiceimpl implements WanXiangQKLService {
     private Log log = LogFactory.getLog(WanXiangQKLServiceimpl.class.getName());
     String sql = " select * from uf_Ivmode where BELNR=?";
 
+
     @Override
     public ResultMesage WriteinvoiceMode(InvoicemodeReq invoicemodeReq) throws UnsupportedEncodingException {
         log.info("------------------------发票状态----------------------------begin");
@@ -68,18 +69,18 @@ public class WanXiangQKLServiceimpl implements WanXiangQKLService {
             Map.put("BELNR",null2String(invoicemodeReq.getBELNR()));
             Map.put("XBLNR",null2String(invoicemodeReq.getXBLNR()));
             Map.put("BLART",null2String(invoicemodeReq.getBLART()));
-            //Map.put("invoiceCode",null2String(invoicemodeReq.getInvoiceCode()));
+            Map.put("invoiceCode",null2String(invoicemodeReq.getInvoiceCode()));
             Map.put("BLDAT",null2String(invoicemodeReq.getBLDAT()));
-            //Map.put("buyerName",null2String(invoicemodeReq.getBuyerName()));
-            //Map.put("buyerCreditCode",null2String(invoicemodeReq.getBuyerCreditCode()));
-            //Map.put("sellerName",null2String(invoicemodeReq.getSellerName()));
-            //Map.put("sellerCreditCode",null2String(invoicemodeReq.getSellerCreditCode()));
+            Map.put("buyerName",null2String(invoicemodeReq.getBuyerName()));
+            Map.put("buyerCreditCode",null2String(invoicemodeReq.getBuyerCreditCode()));
+            Map.put("sellerName",null2String(invoicemodeReq.getSellerName()));
+            Map.put("sellerCreditCode",null2String(invoicemodeReq.getSellerCreditCode()));
             Map.put("beforeTaxAmount",null2String(invoicemodeReq.getBeforeTaxAmount()));
             Map.put("afterTaxAmount",null2String(invoicemodeReq.getAfterTaxAmount()));
             Map.put("usedAmount",null2String(invoicemodeReq.getUsedAmount()));
             Map.put("availableAmount",null2String(invoicemodeReq.getAvailableAmount()));
             //Map.put("checkCode",null2String(invoicemodeReq.getCheckCode()));
-            ModeDataUtil.SaveModeDataInfo(Map, "241", "1");
+            ModeDataUtil.SaveModeDataInfo(Map, "246", "1");
         } catch (Exception e) {
             throw new RuntimeException(e);
         }
