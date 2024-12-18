@@ -37,6 +37,10 @@ public class DownloadFileV2 extends BaseBean implements Action{
     private String OperatorId;
     private String SecretId;
     private String SecretKey;
+    //文档路径id
+    //读取存储磁盘id，默认81
+    //getIntFromRequestHeader方法意为读取请求头“dirId”键的值，如不存在则默认为81
+    private static String dirId;
     public static final Map<String,String> status_flag= new HashMap<String,String>();
 
     static{
@@ -112,7 +116,6 @@ public class DownloadFileV2 extends BaseBean implements Action{
                     data = out.toByteArray();
                     inStream.close();
                     out.close();
-                    int dirId = 35;
                     //赋予时间参数
                     Date currentDate = new Date();
                     SimpleDateFormat dateFormat = new SimpleDateFormat("yyyy-MM-dd");
@@ -132,7 +135,7 @@ public class DownloadFileV2 extends BaseBean implements Action{
                     DocInfo docInfo = new DocInfo();
                     docInfo.setDocSubject(docsub);//文档主题
                     docInfo.setDoccontent("");//文档内容
-                    docInfo.setSeccategory(dirId);//存储的磁盘id
+                    docInfo.setSeccategory(Integer.parseInt(dirId));//存储的磁盘id
                     docInfo.setDoccreaterid(1);//创建者id
                     docInfo.setDoccreatedate(dateFormat.format(currentDate));//文档创建日期
                     docInfo.setDoccreatetime(timeFormat.format(currentDate));//文档创建时间
@@ -187,6 +190,13 @@ public class DownloadFileV2 extends BaseBean implements Action{
     }
 
 
+    public static String getDirId() {
+        return dirId;
+    }
+
+    public static void setDirId(String dirId) {
+        DownloadFileV2.dirId = dirId;
+    }
 
     public String getOperatorId() {
         return OperatorId;
