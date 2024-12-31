@@ -20,6 +20,18 @@ public class PurchaseRequisitionReq {
     private String 	BATXT;
     /**采购申请抬头注释*/
     private String 	ZEBANH;
+    /**明细字段*/
+    private List<PurchaseRequisitionDetailReq> Detailitem;
+    /**附件清单*/
+    private List<PurchaseRequisitionFileReq> fileitem;
+
+    public List<PurchaseRequisitionFileReq> getFileitem() {
+        return fileitem;
+    }
+
+    public void setFileitem(List<PurchaseRequisitionFileReq> fileitem) {
+        this.fileitem = fileitem;
+    }
 
     public String getZEBANH() {
         return ZEBANH;
@@ -45,7 +57,7 @@ public class PurchaseRequisitionReq {
         this.BATXT = BATXT;
     }
 
-    private List<PurchaseRequisitionDetailReq> item;
+
 
     public String getBANFN() {
         return BANFN;
@@ -55,12 +67,12 @@ public class PurchaseRequisitionReq {
         this.BANFN = BANFN;
     }
 
-    public List<PurchaseRequisitionDetailReq> getItem() {
-        return item;
+    public List<PurchaseRequisitionDetailReq> getDetailitem() {
+        return Detailitem;
     }
 
-    public void setItem(List<PurchaseRequisitionDetailReq> item) {
-        this.item = item;
+    public void setDetailitem(List<PurchaseRequisitionDetailReq> detailitem) {
+        Detailitem = detailitem;
     }
 
     public String getBNAME() {
@@ -79,7 +91,8 @@ public class PurchaseRequisitionReq {
                 ", BSART='" + BSART + '\'' +
                 ", BATXT='" + BATXT + '\'' +
                 ", ZEBANH='" + ZEBANH + '\'' +
-                ", item=" + item +
+                ", Detailitem=" + Detailitem +
+                ", fileitem=" + fileitem +
                 '}';
     }
 }
