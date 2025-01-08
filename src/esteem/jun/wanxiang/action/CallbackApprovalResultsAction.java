@@ -33,6 +33,9 @@ public class CallbackApprovalResultsAction   extends BaseBean implements Action 
     private String logstatus;
     /**单据类型 1-采购申请 2-采购订单 3-采购合同 4-质量通知单编码 5-采购发票 6-检验批编号 7-预留单 8910-验收单 11-委外测试合同*/
     private String zdjlx;
+    /**发票入账节点ID*/
+    private String NODEID;
+
     public String execute(RequestInfo requestInfo) {
         long startTime = System.currentTimeMillis();
         String workflowid =requestInfo.getWorkflowid();
@@ -88,7 +91,7 @@ public class CallbackApprovalResultsAction   extends BaseBean implements Action 
                 RecordSet recordSet=new RecordSet();
                 RecordSet recordSet1=new RecordSet();
                 String sql="select hrmresource.lastname,cus_fielddata.field13 from hrmresource join cus_fielddata on hrmresource.id =cus_fielddata.id and cus_fielddata.SCOPEID='-1' and hrmresource.ID = ?";
-                String sql1="SELECT OPERATOR FROM workflow_requestlog WHERE NODEID=8111 AND REQUESTID=? ORDER BY LOGID DESC LIMIT 1";
+                String sql1="SELECT OPERATOR FROM workflow_requestlog WHERE NODEID='"+NODEID+"' AND REQUESTID=? ORDER BY LOGID DESC LIMIT 1";
                 log.info("HEADER_TXT:"+null2String(requestInfo.getLastoperator()));
                 log.info("AgentID"+null2String(baseActionInfo.getRequestManager().getAgentId()));
                 recordSet1.executeQuery(sql1,null2String(baseActionInfo.getRequestId()));
@@ -255,5 +258,13 @@ public class CallbackApprovalResultsAction   extends BaseBean implements Action 
 
     public void setZdjlx(String zdjlx) {
         this.zdjlx = zdjlx;
+    }
+
+    public String getNODEID() {
+        return NODEID;
+    }
+
+    public void setNODEID(String NODEID) {
+        this.NODEID = NODEID;
     }
 }
