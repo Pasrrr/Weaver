@@ -18,24 +18,19 @@ import org.apache.http.client.methods.HttpPost;
 import org.apache.http.conn.ssl.SSLConnectionSocketFactory;
 import org.apache.http.entity.StringEntity;
 import org.apache.http.impl.client.CloseableHttpClient;
-import org.apache.http.impl.client.HttpClientBuilder;
 import org.apache.http.impl.client.HttpClients;
 import org.apache.http.ssl.SSLContextBuilder;
 import org.apache.http.ssl.TrustStrategy;
 import org.apache.http.util.EntityUtils;
 import org.json.JSONArray;
 import org.json.JSONObject;
-import org.junit.Assert;
 import weaver.conn.RecordSet;
 import weaver.general.BaseBean;
-import weaver.general.MD5;
 import weaver.general.Util;
 import weaver.hrm.HrmUserVarify;
 import weaver.hrm.User;
 import weaver.interfaces.workflow.action.Action;
 import weaver.soa.workflow.request.RequestInfo;
-import weaver.workflow.request.RequestCheckAddinRules;
-
 import javax.net.ssl.HostnameVerifier;
 import javax.net.ssl.SSLContext;
 import javax.net.ssl.SSLSession;
@@ -69,6 +64,12 @@ public class PayapplicationQKL extends BaseBean implements Action {
 
     private String HOST;
 
+    private String url;
+
+    private String contractatt;
+
+    private String Orderatt;
+
     @Override
     public String execute(RequestInfo requestInfo) {
         String requestName = requestInfo.getRequestManager().getRequestname();
@@ -81,6 +82,10 @@ public class PayapplicationQKL extends BaseBean implements Action {
         JSONObject sendobj=new JSONObject();
         //判断是否触发
           String ZTERM=baseActionInfo.getMainTableValue("ZTERM");
+          if (ZTERM.equals("")){
+              log.info("非债权凭证，跳过接口");
+              return Action.SUCCESS;
+          }
           String ZTERM2=ZTERM.substring(0,2);
           log.info("ZTERM2:"+ZTERM2);
         try {
@@ -98,10 +103,10 @@ public class PayapplicationQKL extends BaseBean implements Action {
                   payAmount= Double.parseDouble(new DecimalFormat("#.00").format(payAmount));
                   sendobj.put("payAmount",payAmount);
                   /**期望付款日期*/
-                  String paymentDate= baseActionInfo.getMainTableValue("CPUDT");
+                  String paymentDate=Util.null2String(baseActionInfo.getMainTableValue("CPUDT"));
                   sendobj.put("paymentDate",paymentDate);
                   /**预制发票号*/
-                  String preAcctNo= baseActionInfo.getMainTableValue("BELNR");
+                  String preAcctNo=Util.null2String(baseActionInfo.getMainTableValue("BELNR"));
                   sendobj.put("preAcctNo",preAcctNo);
                   /**审批通过日期*/
                   Date date=new Date();
@@ -109,10 +114,10 @@ public class PayapplicationQKL extends BaseBean implements Action {
                   String approveDate=dateFormat.format(date);
                   sendobj.put("approveDate",approveDate);
                   /**流程单号*/
-                  String orderNumber=baseActionInfo.getMainTableValue("dh");
+                  String orderNumber=Util.null2String(baseActionInfo.getMainTableValue("dh"));
                   sendobj.put("orderNumber",orderNumber);
                   /**账期-*/
-                  String dueDate=baseActionInfo.getMainTableValue("zq");
+                  String dueDate=Util.null2String(baseActionInfo.getMainTableValue("zq"));
                   sendobj.put("dueDate",dueDate);
 
                   /**补充附件*/
@@ -123,20 +128,20 @@ public class PayapplicationQKL extends BaseBean implements Action {
                   for (int j = 0; j < maindocIdlist.length; j++) {
                       JSONObject file=new JSONObject();
                       RecordSet recordSet=new RecordSet();
-                      String sqlbc="select * from docimagefile where docid="+maindocIdlist[j];
+                      String sqlbc="select * from docimagefile where docid='"+maindocIdlist[j]+"'";
                       recordSet.execute(sqlbc);
                       String imagefileid="";
                       while (recordSet.next()){
                           imagefileid=recordSet.getString("imagefileid");
                       }
-                      log.info("imagefileid:"+imagefileid);
+                      //log.info("imagefileid:"+imagefileid);
                       String docurl =docLinkUtil.getThirdpartyDownloadLinkByFileid(imagefileid,user);
                       Map<String, String> fileInfo = ESigTreasureUtil.getFileInfoByDocAttachment(maindocIdlist[j], user);
                       String docsub=fileInfo.get("fileName");
                       file.put("fileName",docsub);
                       //file.put("fileUrl","https://img1.baidu.com/it/u=617614446,2150677945&fm=253&fmt=auto&app=120&f=JPEG?w=1237&h=500");
-                      file.put("fileUrl","http://220.189.215.149:12380"+docurl);
-                      log.info("filename+fileUrl:"+docsub+"/"+docurl);
+                      file.put("fileUrl",url+docurl);
+                      //log.info("filename+fileUrl:"+docsub+"/"+docurl);
                       mainfileList.put(file);
                       sendobj.put("fileList",mainfileList);
                   }
@@ -145,22 +150,38 @@ public class PayapplicationQKL extends BaseBean implements Action {
                   //合同信息,框架合同时关联订单信息
                   //判断是否框架合同
                   JSONArray contractInfo=new JSONArray();
-                  String slsfyg=baseActionInfo.getMainTableValue("slsfyg");
-                  String contract=baseActionInfo.getMainTableValue("glhtlc");
-                  String Order =baseActionInfo.getMainTableValue("glddlc");
+                  String slsfyg=Util.null2String(baseActionInfo.getMainTableValue("slsfyg"));
+                  String contract=Util.null2String(baseActionInfo.getMainTableValue("glhtlc"));
+                  String Order =Util.null2String(baseActionInfo.getMainTableValue("glddlc"));
                   if (slsfyg.equals("01")){
+                      RecordSet mainidrs=new RecordSet();
+                      String sqlmainid="SELECT DISTINCT EBELN,mainid,htbh FROM `formtable_main_395_dt2` WHERE mainid=(SELECT id FROM `formtable_main_395` WHERE REQUESTID=1962076)'"+requestId+"'";
+                      mainidrs.executeQuery(sqlmainid);
+                      JSONObject contractobj=new JSONObject();
+                      while (mainidrs.next()){
+                          String contractCode=Util.null2String(mainidrs.getString("EBELN")+mainidrs.getString("mainid"));
+                          contractobj.put("contractCode",contractCode);//合同编号
+                          contractobj.put("contractName","采购订单");//合同名称
+                          RecordSet Contratrs =new RecordSet();
+                          String Contrat=Contratrs.getString("id");
+                          String Contratinfo="select * from formtable_main_398 where htbh='"+Util.null2String(mainidrs.getString("htbh"))+"'";
+
+                      }
+
+
+
                       String[] contractList = Order.split(",");
                       for (int i = 0; i < contractList.length; i++) {
                           RecordSet recordSet=new RecordSet();
-                          String sql="select * from formtable_main_398 where requestid="+contractList[i];
+                          String sql="select * from formtable_main_398 where requestid='"+contractList[i]+"'";
                           recordSet.executeQuery(sql);
-                          JSONObject contractobj=new JSONObject();
                           while (recordSet.next()) {
-                              contractobj.put("contractCode",Util.null2String(recordSet.getString("EBELN")));//合同编号
-                              contractobj.put("contractName","订单"+i);//合同名称
+                              String contractCode=Util.null2String(recordSet.getString("EBELN"));
+                              contractobj.put("contractCode",contractCode);//合同编号
+                              contractobj.put("contractName","采购订单");//合同名称
                               RecordSet recordSetdt =new RecordSet();
                               String mainid=recordSet.getString("id");
-                              String sqldt="select * from formtable_main_398_dt1 where EBELP='00010' and mainid="+mainid;
+                              String sqldt="select * from formtable_main_398_dt1 where EBELP='00010' and mainid='"+mainid+"'";
                               log.info("sqldt:"+sqldt);
                               recordSetdt.executeQuery(sqldt);
                               while (recordSetdt.next()){
@@ -170,32 +191,39 @@ public class PayapplicationQKL extends BaseBean implements Action {
                               contractobj.put("endDate",Util.null2String(recordSet.getString("BEDAT")));//合同终止日期
                               contractobj.put("signDate",Util.null2String(recordSet.getString("BEDAT")));//合同签署日期
                               contractobj.put("sellerName",Util.null2String(recordSet.getString("gysmc")));//卖方名称
-                              contractobj.put("sellerCreditCode",Util.null2String(recordSet.getString("mftyshbm")));//卖方统一社会信用代码
+                              String sellerCreditCode=Util.null2String(recordSet.getString("mftyshbm"));
+                              if (sellerCreditCode.equals("")){
+                                  contractobj.put("sellerCreditCode",sellerSocialCode);//发票卖方统一社会信用代码
+                              }else {
+                                  contractobj.put("sellerCreditCode",sellerCreditCode);//卖方统一社会信用代码
+                              }
                               contractobj.put("buyerName","万向一二三股份公司");//买方名称
                               contractobj.put("buyerCreditCode","91330000577307779U");//买方统一社会信用代码
                               contractobj.put("amount",Util.null2String(recordSet.getString("ddzje")));//合同金额
-                              contractobj.put("countFlag","01");//数量是否预估
+                              contractobj.put("countFlag",slsfyg);//数量是否预估
                               String htfj=baseActionInfo.getMainTableValue("ddfj");
                               log.info("htfj:"+htfj);
                               JSONArray fileList=new JSONArray();
                               String[] dddocIdlist = htfj.split(",");
                               for (int j = 0; j < dddocIdlist.length; j++) {
-                                  JSONObject file=new JSONObject();
-                                  String sqldd="select * from docimagefile where docid="+dddocIdlist[j];
-                                  recordSet.execute(sqldd);
-                                  String imagefileid="";
-                                  while (recordSet.next()){
-                                      imagefileid=recordSet.getString("imagefileid");
-                                  }
-                                  log.info("imagefileid:"+imagefileid);
-                                  String docurl =docLinkUtil.getThirdpartyDownloadLinkByFileid(imagefileid,user);
                                   Map<String, String> fileInfo = ESigTreasureUtil.getFileInfoByDocAttachment(dddocIdlist[j], user);
                                   String docsub=fileInfo.get("fileName");
-                                  file.put("fileName",docsub);
-                                  //file.put("fileUrl","https://img1.baidu.com/it/u=617614446,2150677945&fm=253&fmt=auto&app=120&f=JPEG?w=1237&h=500");
-                                  file.put("fileUrl","http://220.189.215.149:12380"+docurl);
-                                  log.info("filename+fileUrl:"+docsub+"/"+docurl);
-                                  fileList.put(file);
+                                  if (docsub.contains(contractCode)){
+                                      JSONObject file=new JSONObject();
+                                      String sqlht="select * from docimagefile where docid='"+dddocIdlist[j]+"'";
+                                      recordSet.execute(sqlht);
+                                      String imagefileid="";
+                                      while (recordSet.next()){
+                                          imagefileid=recordSet.getString("imagefileid");
+                                      }
+                                      log.info("imagefileid:"+imagefileid);
+                                      String docurl =docLinkUtil.getThirdpartyDownloadLinkByFileid(imagefileid,user);
+                                      file.put("fileName",docsub);
+                                      //file.put("fileUrl","https://img1.baidu.com/it/u=617614446,2150677945&fm=253&fmt=auto&app=120&f=JPEG?w=1237&h=500");
+                                      file.put("fileUrl",url+docurl);
+                                      log.info("filename+fileUrl:"+docsub+"/"+docurl);
+                                      fileList.put(file);
+                                  }
                               }
                               contractobj.put("fileList",fileList);
                               contractInfo.put(contractobj);
@@ -206,44 +234,52 @@ public class PayapplicationQKL extends BaseBean implements Action {
                       String[] contractList = contract.split(",");
                       for (int i = 0; i < contractList.length; i++) {
                           RecordSet recordSet=new RecordSet();
-                          String sql="select * from formtable_main_396 where requestid="+contractList[i];
+                          String sql="select * from formtable_main_396 where requestid='"+contractList[i]+"'";
                           recordSet.executeQuery(sql);
                           JSONObject contractobj=new JSONObject();
                           while (recordSet.next()) {
-                              contractobj.put("contractCode",Util.null2String(recordSet.getString("htbh")));//合同编号
-                              contractobj.put("contractName",Util.null2String(recordSet.getString("bz")));//合同名称
+                              String contractCode=Util.null2String(recordSet.getString("htbh"));
+                              contractobj.put("contractCode",contractCode);//合同编号
+                              contractobj.put("contractName","采购合同");//合同名称
                               contractobj.put("productName",Util.null2String(recordSet.getString("bdwmc")));//产品名称
                               contractobj.put("beginDate",Util.null2String(recordSet.getString("KDATB")));//合同起始日期
                               contractobj.put("endDate",Util.null2String(recordSet.getString("KDATE")));//合同终止日期
-                              contractobj.put("signDate",Util.null2String(recordSet.getString("KDATE")));//合同签署日期
+                              contractobj.put("signDate",Util.null2String(recordSet.getString("KDATB")));//合同签署日期
                               contractobj.put("sellerName",Util.null2String(recordSet.getString("htdfdw")));//卖方名称
-                              contractobj.put("sellerCreditCode",Util.null2String(recordSet.getString("mftyshxydm")));//卖方统一社会信用代码
+                              String sellerCreditCode=Util.null2String(recordSet.getString("mftyshxydm"));
+                              if (sellerCreditCode.equals("")){
+                                  contractobj.put("sellerCreditCode",sellerSocialCode);//发票卖方统一社会信用代码
+                              }else {
+                                  contractobj.put("sellerCreditCode",sellerCreditCode);//卖方统一社会信用代码
+                              }
                               contractobj.put("buyerName","万向一二三股份公司");//买方名称
                               contractobj.put("buyerCreditCode","91330000577307779U");//买方统一社会信用代码
                               contractobj.put("amount",Util.null2String(recordSet.getString("ybjehsdx")));//合同金额
-                              contractobj.put("countFlag",Util.null2String(recordSet.getString("slsfyg")));//数量是否预估
-                              String htfj=recordSet.getString("xgzhtfj");
+                              contractobj.put("countFlag",slsfyg);//数量是否预估
+                              String htfj=Util.null2String(baseActionInfo.getMainTableValue("htfj2"));
                               log.info("htfj:"+htfj);
                               JSONArray fileList=new JSONArray();
                               String[] htdocIdlist = htfj.split(",");
                               for (int j = 0; j < htdocIdlist.length; j++) {
-                                  JSONObject file=new JSONObject();
-                                  String sqlht="select * from docimagefile where docid="+htdocIdlist[j];
-                                  recordSet.execute(sqlht);
-                                  String imagefileid="";
-                                  while (recordSet.next()){
-                                      imagefileid=recordSet.getString("imagefileid");
-                                  }
-                                  log.info("imagefileid:"+imagefileid);
-                                  String docurl =docLinkUtil.getThirdpartyDownloadLinkByFileid(imagefileid,user);
                                   Map<String, String> fileInfo = ESigTreasureUtil.getFileInfoByDocAttachment(htdocIdlist[j], user);
                                   String docsub=fileInfo.get("fileName");
-                                  file.put("fileName",docsub);
-                                  //file.put("fileUrl","https://img1.baidu.com/it/u=617614446,2150677945&fm=253&fmt=auto&app=120&f=JPEG?w=1237&h=500");
-                                  file.put("fileUrl","http://220.189.215.149:12380"+docurl);
-                                  log.info("filename+fileUrl:"+docsub+"/"+docurl);
-                                  fileList.put(file);
+                                  if (docsub.contains(contractCode)){
+                                      JSONObject file=new JSONObject();
+                                      String sqlht="select * from docimagefile where docid='"+htdocIdlist[j]+"'";
+                                      recordSet.execute(sqlht);
+                                      String imagefileid="";
+                                      while (recordSet.next()){
+                                          imagefileid=recordSet.getString("imagefileid");
+                                      }
+                                      log.info("imagefileid:"+imagefileid);
+                                      String docurl =docLinkUtil.getThirdpartyDownloadLinkByFileid(imagefileid,user);
 
+                                      file.put("fileName",docsub);
+                                      //file.put("fileUrl","https://img1.baidu.com/it/u=617614446,2150677945&fm=253&fmt=auto&app=120&f=JPEG?w=1237&h=500");
+                                      file.put("fileUrl",url+docurl);
+                                      log.info("filename+fileUrl:"+docsub+"/"+docurl);
+                                      fileList.put(file);
+                                  }
                               }
                               contractobj.put("fileList",fileList);
                               contractInfo.put(contractobj);
@@ -255,12 +291,12 @@ public class PayapplicationQKL extends BaseBean implements Action {
 
                   //发票信息
                   JSONArray invoiceInfo=new JSONArray();
-                  JSONObject invoiceobj=new JSONObject();
                   RecordSet recordSetmode=new RecordSet();
-                  Map<String,Object> map=new HashMap<>();
-                  String invoice=baseActionInfo.getMainTableValue("XBLNR");
+                  String invoice=Util.null2String(baseActionInfo.getMainTableValue("XBLNR"));
                   String[] invoiceList = invoice.split("-");
                   for (int i = 0; i < invoiceList.length; i++) {
+                      JSONObject invoiceobj=new JSONObject();
+                      Map<String,Object> map=new HashMap<>();
                       map.put("BELNR",preAcctNo);
                       //发票号码
                       String invoiceNumber=Util.null2String(invoiceList[i]);
@@ -286,7 +322,7 @@ public class PayapplicationQKL extends BaseBean implements Action {
                       //校验码
                       String checkCode="";
                       RecordSet recordSetfp=new RecordSet();
-                      String sql="select * from uf_fpxx where ZFPBM="+invoiceList[i];
+                      String sql="select * from uf_fpxx where ZFPBM='"+Util.null2String(invoiceList[i])+"'";
                       recordSetfp.executeQuery(sql);
                       while (recordSetfp.next()) {
                           beforeTaxAmount=Util.null2String(recordSetfp.getString("ZFPJE"));
@@ -296,14 +332,14 @@ public class PayapplicationQKL extends BaseBean implements Action {
                           invoiceobj.put("afterTaxAmount",afterTaxAmount);//不含税金额
                           map.put("afterTaxAmount",afterTaxAmount);
                           //验证码
-                          checkCode=Util.null2String(Util.null2String(recordSetfp.getString("ZBHSJE")));
+                          checkCode=Util.null2String(recordSetfp.getString("ZCHECKCODE"));
                           //log.info("checkCode:"+checkCode);
                           map.put("checkCode",Util.null2String(getLastSixChars(checkCode)));
                       }
                       invoiceobj.put("invoiceNumber",invoiceNumber);
                       invoiceobj.put("invoiceCode","");//发票代码
                       invoiceobj.put("invoiceType",invoiceType);
-                      invoiceobj.put("checkCode",checkCode);
+                      invoiceobj.put("checkCode",Util.null2String(getLastSixChars(checkCode)));
                       invoiceobj.put("openDate",openDate);
                       invoiceobj.put("sellerName",sellerName);
                       invoiceobj.put("sellerCreditCode",sellerCreditCode);
@@ -317,7 +353,7 @@ public class PayapplicationQKL extends BaseBean implements Action {
                       //for (int j = 0; j < fpdocIdlist.length; j++) {
                       JSONObject file=new JSONObject();
                       RecordSet recordSetdt=new RecordSet();
-                      String sqlbc="select * from docimagefile where docid="+fpdocIdlist[i];
+                      String sqlbc="select * from docimagefile where docid='"+fpdocIdlist[i]+"'";
                       recordSetdt.execute(sqlbc);
                       String imagefileid="";
                       while (recordSetdt.next()){
@@ -329,12 +365,12 @@ public class PayapplicationQKL extends BaseBean implements Action {
                       String docsub=fileInfo.get("fileName");
                       file.put("fileName",docsub);
                       //file.put("fileUrl","https://img1.baidu.com/it/u=617614446,2150677945&fm=253&fmt=auto&app=120&f=JPEG?w=1237&h=500");
-                      file.put("fileUrl","http://220.189.215.149:12380"+docurl);
+                      file.put("fileUrl",url+docurl);
                       fileList.put(file);
                       //}
                       invoiceobj.put("fileList",fileList);
                       invoiceInfo.put(invoiceobj);
-                      log.info(invoiceInfo.toString());
+                      log.info("invoiceInfo:"+invoiceInfo.toString());
                       String sqlivmode="select * from uf_Ivmode where XBLNR ='"+invoiceNumber+"'";
                       recordSetmode.execute(sqlivmode);
                       if(recordSetmode.next()){
@@ -354,10 +390,10 @@ public class PayapplicationQKL extends BaseBean implements Action {
                               map.put("id",Util.null2String(recordSetmode.getString("id")));
                           }
                       }
+                      ModeDataUtil.SaveModeDataInfo(map,modeid,"1");
                       //log.info("map:"+map.toString());
                   }
-                  ModeDataUtil.SaveModeDataInfo(map,modeid,"1");
-                  log.info(invoiceInfo);
+                  log.info("invoiceInfo:"+invoiceInfo.toString());
                   sendobj.put("invoiceList",invoiceInfo);
                   //log.info("accessKey+preAcctNo:"+accessKey+preAcctNo);
                   String parm=accessKey+preAcctNo;
@@ -392,6 +428,30 @@ public class PayapplicationQKL extends BaseBean implements Action {
             requestInfo.getRequestManager().setMessagecontent(e.toString());
             return Action.FAILURE_AND_CONTINUE;
         }
+    }
+
+    public String getContractatt() {
+        return contractatt;
+    }
+
+    public void setContractatt(String contractatt) {
+        this.contractatt = contractatt;
+    }
+
+    public String getOrderatt() {
+        return Orderatt;
+    }
+
+    public void setOrderatt(String orderatt) {
+        Orderatt = orderatt;
+    }
+
+    public String getUrl() {
+        return url;
+    }
+
+    public void setUrl(String url) {
+        this.url = url;
     }
 
     public String getAccessKey() {
@@ -498,5 +558,7 @@ public class PayapplicationQKL extends BaseBean implements Action {
         }
         return str.length() > 6 ? str.substring(str.length() - 6) : str;
     }
+
+
 }
 
